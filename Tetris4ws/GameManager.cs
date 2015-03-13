@@ -8,6 +8,8 @@ namespace Tetris4ws
 {
     class GameManager
     {
+        //スコア
+        public int score = 0;
         //グリッド全体のブロックの配置
         int[,] grid = new int[10, 20];
         //グリッド内で積まれているブロックの配置
@@ -72,7 +74,6 @@ namespace Tetris4ws
                     }
                 }
                 updateGrid();
-                this.getNewBlock();
 
                 //消せるラインをチェックする
                 for (int y = 0; y < 20; y++)
@@ -80,13 +81,14 @@ namespace Tetris4ws
                     int count = 0;
                     for (int x = 0; x < 10; x++)
                     {
-                        count++;
+                        count += stack[x,y];
                     }
                     if (count >= 10)
                     {
                         destroyLine(y);
                     }
                 }
+                this.getNewBlock();
 
             }
         }
@@ -97,13 +99,29 @@ namespace Tetris4ws
             {
                 //横方向に移動する
                 position_tetrimino[0] = position_tetrimino[0] + x;
+                reset();
                 updateGrid();
             }
         }
 
-        public void destroyLine(int row)
+        private void destroyLine(int row)
         {
-            //ラインを消して積んだブロック群を下に移動する
+            score += 100;
+            //rowの行を上の行で上書きする
+            for (int i = row; i >= 0; i--)
+            {
+                for (int x = 0; x < 10; x++)
+                {
+                    if (i == 0) 
+                    {
+                        stack[x, i] = 0;
+                    }
+                    else
+                    {
+                        stack[x, i] = stack[x, i - 1];
+                    }
+                }
+            }
         }
 
         private void reset()
@@ -147,9 +165,12 @@ namespace Tetris4ws
                 pattern_rot90[m, 0] = 0 * tetrimino_current[m, 0] + (-1) * tetrimino_current[m, 1];
                 pattern_rot90[m, 1] = 1 * tetrimino_current[m, 0] + 0 * tetrimino_current[m, 1];
             }
-            tetrimino_current = pattern_rot90;
-            reset();
-            updateGrid();
+            if (rotationCheck(pattern_rot90))
+            {
+                tetrimino_current = pattern_rot90;
+                reset();
+                updateGrid();
+            }
         }
         
         /*
@@ -158,16 +179,12 @@ namespace Tetris4ws
          *1orNullだったらfalseを返す処理をつくる
          */
 
+        //配列のオーバーフローが最初におきるからnullでの判定は無理っぽい
+
+        //下方向のチェック
         private bool shiftCheck_Vertical()
         {
             bool movable = true;
-            for (int x = 0; x < 10; x++)
-            {
-                for (int y = 0; y < 20; y++)
-                {
-                    grid[x, y] = 0;
-                }
-            }
             for (int i = 0; i < 4; i++)
             {
                 if (position_tetrimino[1] + tetrimino_current[i, 1]  + 1 >= 20) 
@@ -182,17 +199,18 @@ namespace Tetris4ws
             }
             return movable;
         }
-
+        //左右方向のチェック
         private bool shiftCheck_Horizontal(int x_shift)
         {
             bool movable = true;
+            /*
             for (int x = 0; x < 10; x++)
             {
                 for (int y = 0; y < 20; y++)
                 {
                     grid[x, y] = 0;
                 }
-            }
+            }*/
             for (int i = 0; i < 4; i++)
             {
                 if (position_tetrimino[0] + tetrimino_current[i, 0] + x_shift <= -1)
@@ -213,6 +231,23 @@ namespace Tetris4ws
             }
             return movable;
         }
-
+        //回転のチェック
+        private bool rotationCheck(int[,] temp)
+        {
+            bool movable = true;
+            for (int i = 0; i < 4; i++)
+            {
+                if (position_tetrimino[0] + temp[i, 0] < 0 || position_tetrimino[0] + temp[i, 0] + temp[i, 0] > 9
+                    || position_tetrimino[1] + temp[i,1] > 19)
+                { 
+                    movable = false;
+                }
+                else if (stack[position_tetrimino[0] + temp[i, 0], position_tetrimino[1] + temp[i, 1]] != 0)
+                {
+                    movable = false;
+                }
+            }
+                return movable;
+        }
     }
 }

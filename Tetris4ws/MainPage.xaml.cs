@@ -137,6 +137,7 @@ namespace Tetris4ws
         private void update(object sender, object e)
         {
             //タイマーのインターバルごとに処理
+            debugbox.Text = GM.score.ToString();
             grid = GM.getGrid();
 
             //描画処理（毎フレームやる）
