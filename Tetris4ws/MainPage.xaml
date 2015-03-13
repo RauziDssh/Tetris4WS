@@ -13,10 +13,13 @@
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <UI:AdControl ApplicationId="d25517cb-12d4-4699-8bdc-52040c712cab" AdUnitId="10043104" HorizontalAlignment="Left" Height="250" Margin="1011,471,0,0" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
         <UI:AdControl ApplicationId="d25517cb-12d4-4699-8bdc-52040c712cab" AdUnitId="10043104" HorizontalAlignment="Left" Height="250" Margin="1328,139,-212,0" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
         <Canvas x:Name="Canvas01" HorizontalAlignment="Center" Height="1000" Margin="429,-116,437,-116" VerticalAlignment="Center" Width="500" Background="Black" Grid.Column="1"/>
         <TextBlock x:Name="debugbox" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="116,139,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="114" FontSize="30" Width="189"/>
         <Image x:Name="testimages" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="100" Margin="222,362,0,0" VerticalAlignment="Top" Width="100"/>
+        <Button x:Name="button_Rotate" Grid.ColumnSpan="2" Content="回転" HorizontalAlignment="Left" Margin="94,320,0,0" VerticalAlignment="Top" Width="200" Height="203" Click="button_Rotate_Click"/>
+        <Button x:Name="button_Left" Grid.ColumnSpan="2" Content="左" HorizontalAlignment="Left" Margin="1029,320,0,0" VerticalAlignment="Top" Height="220" Width="149" Click="button_Left_Click"/>
+        <Button x:Name="button_Right" Grid.ColumnSpan="2" Content="右" HorizontalAlignment="Left" Margin="1199,320,0,0" VerticalAlignment="Top" Height="220" Width="132" Click="button_Right_Click"/>
+        <Button x:Name="button_Down" Grid.ColumnSpan="2" Content="下" HorizontalAlignment="Left" Margin="1029,555,0,0" VerticalAlignment="Top" Height="90" Width="302" Click="button_Down_Click"/>
     </Grid>
 </Page>
