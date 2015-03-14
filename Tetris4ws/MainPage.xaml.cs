@@ -33,6 +33,8 @@ namespace Tetris4ws
         BitmapImage bmp_block;
         BitmapImage bmp_black;
         GameManager GM;
+        DispatcherTimer timer;
+        DispatcherTimer timer_Down;
 
         public MainPage()
         {
@@ -58,14 +60,14 @@ namespace Tetris4ws
             }
 
             //描画タイマのインターバルを設定
-            DispatcherTimer timer = new DispatcherTimer();
+            timer = new DispatcherTimer();
             double interval = 1 / 60;
             timer.Interval = TimeSpan.FromSeconds(interval);
             timer.Tick += update;
             timer.Start();
 
             //操作タイマのインターバルを設定
-            DispatcherTimer timer_Down = new DispatcherTimer();
+            timer_Down = new DispatcherTimer();
             double interval_Down = 0.5;
             timer_Down.Interval = TimeSpan.FromSeconds(interval_Down);
             timer_Down.Tick += update_Down;
@@ -78,8 +80,15 @@ namespace Tetris4ws
             testtimer.Tick += testupdate;
             testtimer.Start();*/
 
-            GM = new GameManager();
+            GM = new GameManager(this);
             GM.getNewBlock();
+        }
+
+        public void gameOver()
+        {
+            timer.Stop();
+            timer_Down.Stop();
+            debugbox.Text = "GameOver";
         }
 
         private void update_Down(object sender, object e)
