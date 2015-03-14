@@ -15,10 +15,7 @@ namespace Tetris4ws
         //グリッド内で積まれているブロックの配置
         int[,] stack = new int[10, 20];
 
-        public MainPage MP;
-
-        public GameManager(MainPage mainpage){
-            MP = mainpage;
+        public GameManager(){
             for (int x = 0; x < 10; x++)
             {
                 for (int y = 0; y < 20; y++)
@@ -43,35 +40,11 @@ namespace Tetris4ws
             position_tetrimino = new int[]{4,1};
             Tetrimino tetrimino_new = new Tetrimino();
             tetrimino_current = tetrimino_new.getNewTetrimino();
-
-            if (checkGameOver(tetrimino_current))
+            for (int i = 0; i < 4; i++)
             {
-                //ゲームオーバー
-                MP.gameOver();
+                grid[position_tetrimino[0] + tetrimino_current[i, 0], position_tetrimino[1] + tetrimino_current[i, 1]] = 1;
             }
-            else
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    grid[position_tetrimino[0] + tetrimino_current[i, 0], position_tetrimino[1] + tetrimino_current[i, 1]] = 1;
-                }
-                updateGrid();
-            }
-        }
-
-        private bool checkGameOver(int[,] temp)
-        {
-            //出現ブロックが積んでいるブロックとかぶっていたらtrue
-            bool movable = false;
-
-            for(int i = 0;i < 4;i++)
-            {
-                if (stack[position_tetrimino[0] + tetrimino_current[i, 0], position_tetrimino[1] + tetrimino_current[i, 1]] != 0)
-                {
-                    movable = true;
-                }
-            }
-            return movable;
+            updateGrid();
         }
 
         public void setBlockDown()
@@ -116,6 +89,7 @@ namespace Tetris4ws
                     }
                 }
                 this.getNewBlock();
+
             }
         }
 
