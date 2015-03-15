@@ -9,7 +9,7 @@ namespace Tetris4ws
     static class GameManager
     {
         //スコア
-        public int score = 0;
+        public static int score = 0;
         //グリッド全体のブロックの配置
         static int[,] grid = new int[10, 20];
         //グリッド内で積まれているブロックの配置
@@ -22,11 +22,12 @@ namespace Tetris4ws
         //次のテトリミノ
         static Tetrimino tetrimino_Next;
 
-        Random R1 = new Random();
+        static Random R1 = new Random();
 
-        public MainPage MP;
+        public static MainPage MP;
 
-        public GameManager(MainPage mainpage){
+        public static void setInstance(MainPage mainpage)
+        {
             MP = mainpage;
             for (int x = 0; x < 10; x++)
             {
@@ -38,12 +39,12 @@ namespace Tetris4ws
             }
         }
         
-        public int[,] getGrid()
+        public static int[,] getGrid()
         {
             return grid;
         }
 
-        public void getNewBlock()
+        public static void getNewBlock()
         {
             position_tetrimino = new int[]{4,1};
             tetrimino_Controlling = new Tetrimino(R1.Next(7));
@@ -69,7 +70,7 @@ namespace Tetris4ws
             }
         }
 
-        private bool checkGameOver(int[,] temp)
+        private static bool checkGameOver(int[,] temp)
         {
             //出現ブロックが積んでいるブロックとかぶっていたらtrue
             bool movable = false;
@@ -84,7 +85,7 @@ namespace Tetris4ws
             return movable;
         }
 
-        public void setBlockDown()
+        public static void setBlockDown()
         {
             if (shiftCheck_Vertical())
             {
@@ -119,11 +120,11 @@ namespace Tetris4ws
                         destroyLine(y);
                     }
                 }
-                this.getNewBlock();
+                getNewBlock();
             }
         }
 
-        public void shiftHorizontal(int x)
+        public static void shiftHorizontal(int x)
         {
             if (shiftCheck_Horizontal(x))
             {
@@ -134,7 +135,7 @@ namespace Tetris4ws
             }
         }
 
-        private void destroyLine(int row)
+        private static void destroyLine(int row)
         {
             score += 100;
             reset();
@@ -155,7 +156,7 @@ namespace Tetris4ws
             }
         }
 
-        private void reset()
+        private static void reset()
         {
             //全体の初期化
             for (int x = 0; x < 10; x++)
@@ -167,7 +168,7 @@ namespace Tetris4ws
             }
         }
 
-        private void updateGrid()
+        private static void updateGrid()
         {
             //操作ブロックの反映
             for (int i = 0; i < 4; i++)
@@ -187,7 +188,7 @@ namespace Tetris4ws
             }
         }
 
-        public void setRotate()
+        public static void setRotate()
         {
             //90度回転する
             int[,] pattern_rot90 = new int[4, 2];
@@ -212,7 +213,7 @@ namespace Tetris4ws
         //配列のオーバーフローが最初におきるからnullでの判定は無理っぽい
 
         //下方向のチェック
-        private bool shiftCheck_Vertical()
+        private static bool shiftCheck_Vertical()
         {
             bool movable = true;
             for (int i = 0; i < 4; i++)
@@ -231,7 +232,7 @@ namespace Tetris4ws
             return movable;
         }
         //左右方向のチェック
-        private bool shiftCheck_Horizontal(int x_shift)
+        private static bool shiftCheck_Horizontal(int x_shift)
         {
             bool movable = true;
             /*
@@ -263,7 +264,7 @@ namespace Tetris4ws
             return movable;
         }
         //回転のチェック
-        private bool rotationCheck(int[,] temp)
+        private static bool rotationCheck(int[,] temp)
         {
             bool movable = true;
             for (int i = 0; i < 4; i++)

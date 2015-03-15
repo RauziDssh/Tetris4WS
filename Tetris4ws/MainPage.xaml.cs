@@ -47,7 +47,6 @@ namespace Tetris4ws
         static BitmapImage bmp_viored;
         static BitmapImage bmp_skyblue;
 
-        static GameManager GM;
         static DispatcherTimer timer;
         static DispatcherTimer timer_Down;
 
@@ -119,8 +118,8 @@ namespace Tetris4ws
             testtimer.Interval = TimeSpan.FromSeconds(testinterval);
             testtimer.Tick += testupdate;
             testtimer.Start();*/
-
-            GM.getNewBlock();
+            GameManager.setInstance(this);
+            GameManager.getNewBlock();
         }
 
         public void gameOver()
@@ -155,16 +154,16 @@ namespace Tetris4ws
                 switch (e.Key.ToString())
                 {
                     case "Left":
-                        GM.shiftHorizontal(-1);
+                        GameManager.shiftHorizontal(-1);
                         break;
                     case "Right":
-                        GM.shiftHorizontal(1);
+                        GameManager.shiftHorizontal(1);
                         break;
                     case "Down":
-                        GM.setBlockDown();
+                        GameManager.setBlockDown();
                         break;
                     case "Space":
-                        GM.setRotate();
+                        GameManager.setRotate();
                         break;
                 }
             }
@@ -179,7 +178,7 @@ namespace Tetris4ws
 
             if (playable)
             {
-                GM.setBlockDown();
+                GameManager.setBlockDown();
             }
         }
 
@@ -187,7 +186,7 @@ namespace Tetris4ws
         {
             if (playable)
             {
-                GM.setBlockDown();
+                GameManager.setBlockDown();
             }
         }
 
@@ -195,7 +194,7 @@ namespace Tetris4ws
         {
             if (playable)
             {
-                GM.setRotate();
+                GameManager.setRotate();
             }
         }
 
@@ -203,7 +202,7 @@ namespace Tetris4ws
         {
             if (playable)
             {
-                GM.shiftHorizontal(-1);
+                GameManager.shiftHorizontal(-1);
             }
         }
 
@@ -211,7 +210,7 @@ namespace Tetris4ws
         {
             if (playable)
             {
-                GM.shiftHorizontal(1);
+                GameManager.shiftHorizontal(1);
             }
         }
 
@@ -255,8 +254,8 @@ namespace Tetris4ws
         {
             
             //タイマーのインターバルごとに処理
-            debugbox.Text = GM.score.ToString();
-            grid = GM.getGrid();
+            debugbox.Text = GameManager.score.ToString();
+            grid = GameManager.getGrid();
 
             //描画処理（毎フレームやる）
             for (int x = 0; x < 10; x++)
