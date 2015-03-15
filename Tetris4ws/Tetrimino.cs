@@ -54,49 +54,41 @@ namespace Tetris4ws
                        {1,0},
                    };
 
+        enum Colors {black,blue,red,yellow,skyblue,orange,green,viored };
+
         public Tetrimino(int num)
         {
             //新たなテトリミノをつくる
-
-               /* colors of Tetriminos
-                * 1:blue
-                * 2:red
-                * 3:yellow
-                * 4:skyblue
-                * 5:orange
-                * 6:green
-                * 7:viored
-                */
 
             switch (num)
             {
                 case 0:
                     pattern = o;
-                    color = 3;
+                    color = (int)Colors.yellow;
                     break;
                 case 1:
                     pattern = i;
-                    color = 4;
+                    color = (int)Colors.skyblue;
                     break;
                 case 2:
                     pattern = t;
-                    color = 7;
+                    color = (int) Colors.viored;
                     break;
                 case 3:
                     pattern = s;
-                    color = 2;
+                    color = (int) Colors.red;
                     break;
                 case 4:
                     pattern = z;
-                    color = 6;
+                    color = (int)Colors.green;
                     break;
                 case 5:
                     pattern = l;
-                    color = 5;
+                    color = (int) Colors.orange;
                     break;
                 case 6:
                     pattern = j;
-                    color = 1;
+                    color = (int)Colors.blue;
                     break;
             }
         }

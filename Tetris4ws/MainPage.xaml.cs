@@ -81,7 +81,7 @@ namespace Tetris4ws
                 }
             }
 
-            //NEXTグリッドの初期化と描画セルの確保
+            //NEXTの描画セルの確保
             for (int x = 0; x < 4; x++)
             {
                 for (int y = 0; y < 4; y++)
@@ -122,11 +122,10 @@ namespace Tetris4ws
 
         public void gameOver()
         {
-            playable = false;
             timer.Stop();
             timer_Down.Stop();
-            debugbox.Text = "GameOver";
-
+            playable = false;
+            
             //ブロックをグレーに
             for (int x = 0; x < 10; x++)
             {
