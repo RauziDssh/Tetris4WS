@@ -13,13 +13,15 @@
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <UI:AdControl ApplicationId="d25517cb-12d4-4699-8bdc-52040c712cab" AdUnitId="10043104" HorizontalAlignment="Left" Height="250" Margin="1328,139,-212,0" VerticalAlignment="Top" Width="250" Grid.Column="1"/>
         <Canvas x:Name="Canvas01" HorizontalAlignment="Center" Height="1000" Margin="429,-116,437,-116" VerticalAlignment="Center" Width="500" Background="Black" Grid.Column="1"/>
         <TextBlock x:Name="debugbox" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="116,139,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="114" FontSize="30" Width="189"/>
         <Image x:Name="testimages" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="100" Margin="222,362,0,0" VerticalAlignment="Top" Width="100"/>
-        <Button x:Name="button_Rotate" Grid.ColumnSpan="2" Content="回転" HorizontalAlignment="Left" Margin="1029,118,0,0" VerticalAlignment="Top" Width="297" Height="203" Click="button_Rotate_Click"/>
-        <Button x:Name="button_Left" Grid.ColumnSpan="2" Content="左" HorizontalAlignment="Left" Margin="1029,320,0,0" VerticalAlignment="Top" Height="220" Width="149" Click="button_Left_Click"/>
-        <Button x:Name="button_Right" Grid.ColumnSpan="2" Content="右" HorizontalAlignment="Left" Margin="1199,320,0,0" VerticalAlignment="Top" Height="220" Width="132" Click="button_Right_Click"/>
-        <Button x:Name="button_Down" Grid.ColumnSpan="2" Content="下" HorizontalAlignment="Left" Margin="1029,555,0,0" VerticalAlignment="Top" Height="90" Width="302" Click="button_Down_Click"/>
+        <Button x:Name="button_Rotate" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,0,58,373" VerticalAlignment="Bottom" Width="297" Height="127" Click="button_Rotate_Click" Content="回転" FontFamily="Global User Interface"/>
+        <Button x:Name="button_Left" Grid.ColumnSpan="2" Content="左" HorizontalAlignment="Right" Margin="0,0,206,150" VerticalAlignment="Bottom" Click="button_Left_Click" Height="220" Width="149"/>
+        <Button x:Name="button_Right" Grid.ColumnSpan="2" Content="右" HorizontalAlignment="Right" Margin="0,0,53,150" VerticalAlignment="Bottom" Click="button_Right_Click" Width="132" Height="220"/>
+        <Button x:Name="button_Down" Grid.ColumnSpan="2" Content="下" HorizontalAlignment="Right" Margin="0,0,53,42" VerticalAlignment="Bottom" Click="button_Down_Click" Height="90" Width="302"/>
+        <TextBlock x:Name="tb1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="128,300,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="13" Width="45"/>
+        <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,12,320,0" TextWrapping="Wrap" Text="NEXT" VerticalAlignment="Top" FontSize="30" Height="36" Width="72"/>
+        <Canvas x:Name="Canvas_next" Grid.ColumnSpan="2" Height="200" Margin="0,53,192,0" VerticalAlignment="Top" Background="{ThemeResource AppBarBackgroundThemeBrush}" HorizontalAlignment="Right" Width="200"/>
     </Grid>
 </Page>

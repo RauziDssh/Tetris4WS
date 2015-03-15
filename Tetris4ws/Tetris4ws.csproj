@@ -127,6 +127,14 @@
   <ItemGroup>
     <Content Include="Assets\black.png" />
     <Content Include="Assets\blockparts.bmp" />
+    <Content Include="Assets\blockparts_Blue.bmp" />
+    <Content Include="Assets\blockparts_Green.bmp" />
+    <Content Include="Assets\blockparts_Grey.bmp" />
+    <Content Include="Assets\blockparts_Orange.bmp" />
+    <Content Include="Assets\blockparts_Red.bmp" />
+    <Content Include="Assets\blockparts_Skyblue.bmp" />
+    <Content Include="Assets\blockparts_Viored.bmp" />
+    <Content Include="Assets\blockparts_Yellow.bmp" />
     <Content Include="Assets\Logo.scale-100.png" />
     <Content Include="Assets\SmallLogo.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
