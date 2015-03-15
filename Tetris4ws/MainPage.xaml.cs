@@ -143,6 +143,7 @@ namespace Tetris4ws
             }
         }
 
+        
         public void drawNext(Tetrimino nextblocks)
         {
             for (int x = 0; x < 4;x++)
@@ -287,6 +288,8 @@ namespace Tetris4ws
         * 7:viored
         */
 
+        Tetrimino next = new Tetrimino();
+        
         private void update(object sender, object e)
         {
             

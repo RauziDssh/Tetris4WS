@@ -18,11 +18,9 @@ namespace Tetris4ws
         //操作中のテトリミノの原点位置
         static int[] position_tetrimino;
         //操作中のテトリミノ
-        static Tetrimino tetrimino_Controlling;
+        static Tetrimino tetrimino_Controlling = new Tetrimino();
         //次のテトリミノ
-        static Tetrimino tetrimino_Next;
-
-        static Random R1 = new Random();
+        public static Tetrimino tetrimino_Next = new Tetrimino();
 
         public static MainPage MP;
 
@@ -39,10 +37,10 @@ namespace Tetris4ws
             }
 
             //操作中テトリミノとNEXTテトリミノを取得する
-            tetrimino_Controlling = new Tetrimino(R1.Next(7));
+            tetrimino_Controlling.getNewTetrimino();
             position_tetrimino = new int[] { 4, 1 };
 
-            tetrimino_Next = new Tetrimino(R1.Next(7));
+            tetrimino_Next.getNewTetrimino();
             MP.drawNext(tetrimino_Next);
 
             //グリッドの更新
@@ -59,11 +57,21 @@ namespace Tetris4ws
             return grid;
         }
 
+        private static void clone_Tetrimino(Tetrimino curr,Tetrimino next)
+        {
+            curr.pattern = next.pattern;
+            curr.patterns = next.patterns;
+            curr.color = next.color;
+            curr.rotation = next.rotation;
+        }
+
         public static void getNewBlock()
         {
             position_tetrimino = new int[]{4,1};
-            tetrimino_Controlling = tetrimino_Next;
-            tetrimino_Next = new Tetrimino(R1.Next(7));
+
+            //参照型だから = で渡すとダメっぽい
+            clone_Tetrimino(tetrimino_Controlling,tetrimino_Next);
+            tetrimino_Next.getNewTetrimino();
             MP.drawNext(tetrimino_Next);
 
             for (int i = 0; i < 4; i++)
@@ -207,18 +215,16 @@ namespace Tetris4ws
 
         public static void setRotate()
         {
-            //90度回転する
-            int[,] pattern_rot90 = new int[4, 2];
-            for (int m = 0; m < 4; m++)
+            //90度回転する(チェックしてできなかったら戻す)
+            tetrimino_Controlling.setRotate90(1);
+            if (rotationCheck(tetrimino_Controlling.pattern))
             {
-                pattern_rot90[m, 0] = 0 * tetrimino_Controlling.pattern[m, 0] + (-1) * tetrimino_Controlling.pattern[m, 1];
-                pattern_rot90[m, 1] = 1 * tetrimino_Controlling.pattern[m, 0] + 0 * tetrimino_Controlling.pattern[m, 1];
-            }
-            if (rotationCheck(pattern_rot90))
-            {
-                tetrimino_Controlling.pattern = pattern_rot90;
                 reset();
                 updateGrid();
+            }
+            else
+            {
+                tetrimino_Controlling.setRotate90(-1);
             }
         }
         

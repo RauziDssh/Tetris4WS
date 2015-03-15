@@ -9,90 +9,66 @@ namespace Tetris4ws
     public class Tetrimino
     {
         public int[,] pattern;
+        public int[][,] patterns;
         public int color;
+        public int rotation = 0;
 
-        int[,] o = {
-                        {0,0},
-                        {1,0},
-                        {0,1},
-                        {1,1},
-                    };
-        int[,] i = {
-                        {0,-1},
-                        {0,0},
-                        {0,1},
-                        {0,2},
-                    };
-        int[,] s = {
-                        {0,1},
-                        {0,0},
-                        {1,0},
-                        {-1,1},
-                    };
-        int[,] z = {
-                        {-1,0},
-                        {0,0},
-                        {0,1},
-                        {1,1},
-                    };
-        int[,] l = {
-                       {1,1},
-                       {0,-1},
-                       {0,0},
-                       {0,1},
-                   };
-        int[,] j = {
-                       {-1,0},
-                       {0,0},
-                       {1,0},
-                       {1,1},
-                   };
-        int[,] t = {
-                       {-1,0},
-                       {0,0},
-                       {0,1},
-                       {1,0},
-                   };
+        enum Colors {black,blue,red,yellow,skyblue,orange,green,viored};
 
-        enum Colors {black,blue,red,yellow,skyblue,orange,green,viored };
+        Random R1 = new Random();
 
-        public Tetrimino(int num)
+        public void getNewTetrimino()
         {
-            //新たなテトリミノをつくる
 
-            switch (num)
+            switch (R1.Next(7))
             {
                 case 0:
-                    pattern = o;
+                    patterns = BlockPattern.o;
                     color = (int)Colors.yellow;
                     break;
                 case 1:
-                    pattern = i;
+                    patterns = BlockPattern.i;
                     color = (int)Colors.skyblue;
                     break;
                 case 2:
-                    pattern = t;
-                    color = (int) Colors.viored;
+                    patterns = BlockPattern.t;
+                    color = (int)Colors.viored;
                     break;
                 case 3:
-                    pattern = s;
-                    color = (int) Colors.red;
+                    patterns = BlockPattern.s;
+                    color = (int)Colors.red;
                     break;
                 case 4:
-                    pattern = z;
+                    patterns = BlockPattern.z;
                     color = (int)Colors.green;
                     break;
                 case 5:
-                    pattern = l;
-                    color = (int) Colors.orange;
+                    patterns = BlockPattern.l;
+                    color = (int)Colors.orange;
                     break;
                 case 6:
-                    pattern = j;
+                    patterns = BlockPattern.j;
                     color = (int)Colors.blue;
                     break;
             }
+
+            rotation = 0;
+            pattern = patterns[rotation];
         }
 
-        
+        public void setRotate90(int num)
+        {
+            rotation += num;
+            if (rotation == 4)
+            {
+                rotation = 0;
+            }
+            else if (rotation == -1)
+            {
+                rotation = 3;
+            }
+            pattern = patterns[rotation];
+        }
+
     }
 }
