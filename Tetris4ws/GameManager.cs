@@ -26,7 +26,7 @@ namespace Tetris4ws
 
         public static MainPage MP;
 
-        public static void setInstance(MainPage mainpage)
+        public static void startGame(MainPage mainpage)
         {
             MP = mainpage;
             for (int x = 0; x < 10; x++)
@@ -37,6 +37,21 @@ namespace Tetris4ws
                     stack[x, y] = 0;
                 }
             }
+
+            //操作中テトリミノとNEXTテトリミノを取得する
+            tetrimino_Controlling = new Tetrimino(R1.Next(7));
+            position_tetrimino = new int[] { 4, 1 };
+
+            tetrimino_Next = new Tetrimino(R1.Next(7));
+            MP.drawNext(tetrimino_Next);
+
+            //グリッドの更新
+            for (int i = 0; i < 4; i++)
+            {
+                grid[position_tetrimino[0] + tetrimino_Controlling.pattern[i, 0], position_tetrimino[1] + tetrimino_Controlling.pattern[i, 1]] = tetrimino_Controlling.color;
+            }
+            updateGrid();
+
         }
         
         public static int[,] getGrid()
@@ -47,7 +62,9 @@ namespace Tetris4ws
         public static void getNewBlock()
         {
             position_tetrimino = new int[]{4,1};
-            tetrimino_Controlling = new Tetrimino(R1.Next(7));
+            tetrimino_Controlling = tetrimino_Next;
+            tetrimino_Next = new Tetrimino(R1.Next(7));
+            MP.drawNext(tetrimino_Next);
 
             for (int i = 0; i < 4; i++)
             {

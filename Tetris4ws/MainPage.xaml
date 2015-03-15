@@ -8,7 +8,7 @@
     x:Class="Tetris4ws.MainPage"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource AppBarItemDisabledForegroundThemeBrush}">
+    <Grid x:Name="Grid01" Background="{ThemeResource AppBarItemDisabledForegroundThemeBrush}" KeyDown="Grid01_KeyDown">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition/>

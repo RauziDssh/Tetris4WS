@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tetris4ws
 {
-    class Tetrimino
+    public class Tetrimino
     {
         public int[,] pattern;
         public int color;

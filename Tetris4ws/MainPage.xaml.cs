@@ -33,7 +33,6 @@ namespace Tetris4ws
         static int[,] grid = new int[10,20];
         static Image[,] cells = new Image[10, 20];
 
-        static int[,] grid_Next = new int[4, 4];
         static Image[,] cells_Next = new Image[4, 4];
 
         static BitmapImage bmp_block;
@@ -87,12 +86,10 @@ namespace Tetris4ws
             {
                 for (int y = 0; y < 4; y++)
                 {
-                    grid_Next[x, y] = 0;
-
                     cells_Next[x, y] = new Image();
-                    Canvas01.Children.Add(cells_Next[x, y]);
-                    Canvas.SetLeft(cells_Next[x, y], x * (Canvas01.Width / column));
-                    Canvas.SetTop(cells_Next[x, y], y * (Canvas01.Height / row));
+                    Canvas_next.Children.Add(cells_Next[x, y]);
+                    Canvas.SetLeft(cells_Next[x, y], x * (Canvas_next.Width / 4));
+                    Canvas.SetTop(cells_Next[x, y], y * (Canvas_next.Height / 4));
                 }
             }
 
@@ -118,7 +115,8 @@ namespace Tetris4ws
             testtimer.Interval = TimeSpan.FromSeconds(testinterval);
             testtimer.Tick += testupdate;
             testtimer.Start();*/
-            GameManager.setInstance(this);
+
+            GameManager.startGame(this);
             GameManager.getNewBlock();
         }
 
@@ -146,7 +144,48 @@ namespace Tetris4ws
             }
         }
 
-        private void Grid_KeyDown(object sender, KeyRoutedEventArgs e)
+        public void drawNext(Tetrimino nextblocks)
+        {
+            for (int x = 0; x < 4;x++)
+            {
+                for(int y = 0;y < 4;y++)
+                {
+                    cells_Next[x, y].Source = bmp_black;
+                }
+            }
+            BitmapImage color = getColor(nextblocks.color);
+            for (int i = 0; i < 4; i++)
+            {
+                cells_Next[1 + nextblocks.pattern[i, 0], 1 + nextblocks.pattern[i, 1]].Source = color;
+            }
+        }
+
+        private BitmapImage getColor(int num)
+        {
+            switch (num)
+            {
+                case 0:
+                    return bmp_black;
+                case 1:
+                    return bmp_blue;
+                case 2:
+                    return bmp_red;
+                case 3:
+                    return bmp_yellow;
+                case 4:
+                    return bmp_skyblue;
+                case 5:
+                    return bmp_orange;
+                case 6:
+                    return bmp_green;
+                case 7:
+                    return bmp_viored;
+                default:
+                    return bmp_black;
+            }
+        }
+
+        private void Grid01_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             //キーボード入力処理
             if (playable)
@@ -168,7 +207,6 @@ namespace Tetris4ws
                 }
             }
         }
-
 
         int counter = 0;
         private void update_Down(object sender, object e)
@@ -271,33 +309,7 @@ namespace Tetris4ws
                     {
                         cells[x,y].Source = bmp_black;
                     }*/
-                    switch (grid[x, y])
-                    {
-                        case 0:
-                            cells[x, y].Source = bmp_black;
-                            break;
-                        case 1:
-                            cells[x, y].Source = bmp_blue;
-                            break;
-                        case 2:
-                            cells[x, y].Source = bmp_red;
-                            break;
-                        case 3:
-                            cells[x, y].Source = bmp_yellow;
-                            break;
-                        case 4:
-                            cells[x, y].Source = bmp_skyblue;
-                            break;
-                        case 5:
-                            cells[x, y].Source = bmp_orange;
-                            break;
-                        case 6:
-                            cells[x, y].Source = bmp_green;
-                            break;
-                        case 7:
-                            cells[x, y].Source = bmp_viored;
-                            break;
-                    }
+                    cells[x, y].Source = getColor(grid[x, y]);
                 }
             }
             
