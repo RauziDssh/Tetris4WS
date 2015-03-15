@@ -122,10 +122,6 @@ namespace Tetris4ws
 
         public void gameOver()
         {
-            timer.Stop();
-            timer_Down.Stop();
-            playable = false;
-            
             //ブロックをグレーに
             for (int x = 0; x < 10; x++)
             {
@@ -141,6 +137,11 @@ namespace Tetris4ws
                     }
                 }
             }
+
+            timer.Stop();
+            timer_Down.Stop();
+            playable = false;
+            
         }
 
         

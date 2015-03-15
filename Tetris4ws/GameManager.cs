@@ -21,6 +21,8 @@ namespace Tetris4ws
         static Tetrimino tetrimino_Controlling = new Tetrimino();
         //次のテトリミノ
         public static Tetrimino tetrimino_Next = new Tetrimino();
+        //ホールド中のテトリミノ
+        public static Tetrimino tetrimino_Hold = new Tetrimino();
 
         public static MainPage MP;
 

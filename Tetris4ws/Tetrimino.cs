@@ -19,39 +19,33 @@ namespace Tetris4ws
 
         public void getNewTetrimino()
         {
-
-            switch (R1.Next(7))
+            int num = R1.Next(7);
+            switch (num)
             {
                 case 0:
-                    patterns = BlockPattern.o;
                     color = (int)Colors.yellow;
                     break;
                 case 1:
-                    patterns = BlockPattern.i;
                     color = (int)Colors.skyblue;
                     break;
                 case 2:
-                    patterns = BlockPattern.t;
                     color = (int)Colors.viored;
                     break;
                 case 3:
-                    patterns = BlockPattern.s;
                     color = (int)Colors.red;
                     break;
                 case 4:
-                    patterns = BlockPattern.z;
                     color = (int)Colors.green;
                     break;
                 case 5:
-                    patterns = BlockPattern.l;
                     color = (int)Colors.orange;
                     break;
                 case 6:
-                    patterns = BlockPattern.j;
                     color = (int)Colors.blue;
                     break;
             }
 
+            patterns = BlockPattern.allpatterns[num];
             rotation = 0;
             pattern = patterns[rotation];
         }
