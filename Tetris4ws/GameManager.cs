@@ -220,7 +220,7 @@ namespace Tetris4ws
 
         public void setRotate()
         {
-            var rotate_Right = tetrimino_Controlling.Left;
+            var rotate_Right = tetrimino_Controlling.Right;
             if (rotationCheck(rotate_Right.Pattern))
             {
                 tetrimino_Controlling = rotate_Right;
