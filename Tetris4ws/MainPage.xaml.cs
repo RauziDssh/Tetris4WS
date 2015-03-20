@@ -22,18 +22,22 @@ namespace Tetris4ws
     /// <summary>
     /// それ自体で使用できる空白ページまたはフレーム内に移動できる空白ページ。
     /// </summary>
+    /// 
+
     public sealed partial class MainPage : Page
     {
         //ゲームが進行中か
         static bool playable;
 
-        static int column = 10;
-        static int row = 20;
+        const int column_main = 10;
+        const int row_main = 20;
+        const int column_next = 4;
+        const int row_next = 4;
 
-        static int[,] grid = new int[10,20];
-        static Image[,] cells = new Image[10, 20];
+        static int[,] grid = new int[column_main,row_main];
+        static Image[,] cells = new Image[column_main, row_main];
 
-        static Image[,] cells_Next = new Image[4, 4];
+        static Image[,] cells_Next = new Image[column_next, row_next];
 
         static BitmapImage bmp_block;
         static BitmapImage bmp_black;
@@ -49,6 +53,8 @@ namespace Tetris4ws
         static DispatcherTimer timer;
         static DispatcherTimer timer_Down;
 
+        GameManager GM = new GameManager();
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -58,7 +64,7 @@ namespace Tetris4ws
             bmp_block = new BitmapImage(new Uri("ms-appx:///Assets/blockparts.bmp"));
             bmp_black = new BitmapImage(new Uri("ms-appx:///Assets/black.bmp"));
             bmp_grey = new BitmapImage(new Uri("ms-appx:///Assets/blockparts_Grey.bmp"));
-
+             
             bmp_blue = new BitmapImage(new Uri("ms-appx:///Assets/blockparts_Blue.bmp"));
             bmp_red = new BitmapImage(new Uri("ms-appx:///Assets/blockparts_Red.bmp"));
             bmp_yellow = new BitmapImage(new Uri("ms-appx:///Assets/blockparts_Yellow.bmp"));
@@ -68,28 +74,28 @@ namespace Tetris4ws
             bmp_green = new BitmapImage(new Uri("ms-appx:///Assets/blockparts_Green.bmp"));
 
             //グリッドの初期化,描画セルの確保
-            for (int x = 0; x < column; x++)
+            for (int x = 0; x < column_main; x++)
             {
-                for (int y = 0; y < row; y++)
+                for (int y = 0; y < row_main; y++)
                 {
                     grid[x, y] = 0;
 
                     cells[x, y] = new Image();
                     Canvas01.Children.Add(cells[x,y]);
-                    Canvas.SetLeft(cells[x,y], x * (Canvas01.Width / column));
-                    Canvas.SetTop(cells[x,y], y * (Canvas01.Height / row));
+                    Canvas.SetLeft(cells[x,y], x * (Canvas01.Width / column_main));
+                    Canvas.SetTop(cells[x,y], y * (Canvas01.Height / row_main));
                 }
             }
 
             //NEXTの描画セルの確保
-            for (int x = 0; x < 4; x++)
+            for (int x = 0; x < column_next; x++)
             {
-                for (int y = 0; y < 4; y++)
+                for (int y = 0; y < row_next; y++)
                 {
                     cells_Next[x, y] = new Image();
                     Canvas_next.Children.Add(cells_Next[x, y]);
-                    Canvas.SetLeft(cells_Next[x, y], x * (Canvas_next.Width / 4));
-                    Canvas.SetTop(cells_Next[x, y], y * (Canvas_next.Height / 4));
+                    Canvas.SetLeft(cells_Next[x, y], x * (Canvas_next.Width / column_next));
+                    Canvas.SetTop(cells_Next[x, y], y * (Canvas_next.Height / row_next));
                 }
             }
 
@@ -115,17 +121,17 @@ namespace Tetris4ws
             testtimer.Interval = TimeSpan.FromSeconds(testinterval);
             testtimer.Tick += testupdate;
             testtimer.Start();*/
-
-            GameManager.startGame(this);
-            GameManager.getNewBlock();
+            
+            GM.startGame(this);
+            GM.getNewBlock();
         }
 
         public void gameOver()
         {
             //ブロックをグレーに
-            for (int x = 0; x < 10; x++)
+            for (int x = 0; x < column_main; x++)
             {
-                for (int y = 0; y < 20; y++)
+                for (int y = 0; y < row_main; y++)
                 {
                     if (grid[x, y] != 0)
                     {
@@ -145,19 +151,25 @@ namespace Tetris4ws
         }
 
         
-        public void drawNext(Tetrimino nextblocks)
+        public void drawNext(int[,] grid_next_new)
         {
-            for (int x = 0; x < 4;x++)
+            for (int x = 0; x < column_next;x++)
             {
-                for(int y = 0;y < 4;y++)
+                for(int y = 0;y < row_next;y++)
                 {
                     cells_Next[x, y].Source = bmp_black;
                 }
             }
-            BitmapImage color = getColor(nextblocks.color);
-            for (int i = 0; i < 4; i++)
+            BitmapImage color = getColor(grid_next_new[1,1]);
+            for (int x = 0; x < column_next;x++)
             {
-                cells_Next[1 + nextblocks.pattern[i, 0], 1 + nextblocks.pattern[i, 1]].Source = color;
+                for(int y = 0;y < row_next;y++)
+                {
+                    if(grid_next_new[x,y] != 0)
+                    {
+                        cells_Next[x,y].Source = color;
+                    }
+                }
             }
         }
 
@@ -194,16 +206,16 @@ namespace Tetris4ws
                 switch (e.Key.ToString())
                 {
                     case "Left":
-                        GameManager.shiftHorizontal(-1);
+                        GM.shiftHorizontal(-1);
                         break;
                     case "Right":
-                        GameManager.shiftHorizontal(1);
+                        GM.shiftHorizontal(1);
                         break;
                     case "Down":
-                        GameManager.setBlockDown();
+                        GM.setBlockDown();
                         break;
                     case "Space":
-                        GameManager.setRotate();
+                        GM.setRotate();
                         break;
                 }
             }
@@ -217,7 +229,7 @@ namespace Tetris4ws
 
             if (playable)
             {
-                GameManager.setBlockDown();
+                GM.setBlockDown();
             }
         }
 
@@ -225,7 +237,7 @@ namespace Tetris4ws
         {
             if (playable)
             {
-                GameManager.setBlockDown();
+                GM.setBlockDown();
             }
         }
 
@@ -233,7 +245,7 @@ namespace Tetris4ws
         {
             if (playable)
             {
-                GameManager.setRotate();
+                GM.setRotate();
             }
         }
 
@@ -241,7 +253,7 @@ namespace Tetris4ws
         {
             if (playable)
             {
-                GameManager.shiftHorizontal(-1);
+                GM.shiftHorizontal(-1);
             }
         }
 
@@ -249,7 +261,7 @@ namespace Tetris4ws
         {
             if (playable)
             {
-                GameManager.shiftHorizontal(1);
+                GM.shiftHorizontal(1);
             }
         }
 
@@ -295,13 +307,13 @@ namespace Tetris4ws
         {
             
             //タイマーのインターバルごとに処理
-            debugbox.Text = GameManager.score.ToString();
-            grid = GameManager.getGrid();
+            debugbox.Text = GM.score.ToString();
+            grid = GM.getGrid();
 
             //描画処理（毎フレームやる）
-            for (int x = 0; x < 10; x++)
+            for (int x = 0; x < column_main; x++)
             {
-                for (int y = 0; y < 20; y++)
+                for (int y = 0; y < row_main; y++)
                 {
                     /*
                     if (grid[x, y] == 1)
