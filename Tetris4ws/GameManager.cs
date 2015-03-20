@@ -21,16 +21,16 @@ namespace Tetris4ws
         //グリッド内で積まれているブロックの配置
         int[,] stack = new int[column_main, row_main];
 
-        int[,] grid_next = new int[column_next, row_next];
-
         //操作中のテトリミノの原点位置
-        int[] position_tetrimino;
+        private int[] position_tetrimino;
+        //原点の初期位置
+        int[] position_tetrimino_default = {4,1};
         //操作中のテトリミノ
-        Tetrimino tetrimino_Controlling;
+        private Tetrimino tetrimino_Controlling;
         //次のテトリミノ
-        Tetrimino tetrimino_Next;
+        private Tetrimino tetrimino_Next;
         //ホールド中のテトリミノ
-        Tetrimino tetrimino_Hold;
+        private Tetrimino tetrimino_Hold;
 
         public MainPage MP;
 
@@ -54,6 +54,8 @@ namespace Tetris4ws
 
             tetrimino_Next = Tetrimino.Get((TetriminoType)R1.Next(7));
             MP.drawNext(tetrimino_Next);
+
+            firstHold = true;
 
                 //グリッドの更新
                 for (int i = 0; i < 4; i++)
@@ -127,6 +129,7 @@ namespace Tetris4ws
             else
             {
                 //ブロックを積む
+                holded = false;
                 for (int i = 0; i < 4; i++)
                 {
                     grid[position_tetrimino[0] + tetrimino_Controlling.Pattern[i, 0], position_tetrimino[1] + tetrimino_Controlling.Pattern[i, 1]] = (int)tetrimino_Controlling.Color;
@@ -228,7 +231,36 @@ namespace Tetris4ws
                 updateGrid();
             }
         }
-        
+
+        //初回ホールド前true
+        bool firstHold;
+
+        //1回入れ替えたらtrue、ブロックが積まれたらfalse
+        bool holded;
+
+        public void setHold()
+        {
+            if (holded == false)
+            {
+                if (firstHold)
+                {
+                    tetrimino_Hold = Tetrimino.Get((TetriminoType)((int)tetrimino_Controlling.Color - 1));
+                    getNewBlock();
+                    firstHold = false;
+                }
+                else
+                {
+                    position_tetrimino = new int[] { 4, 1 };
+                    int temp = (int)tetrimino_Hold.Color - 1;
+                    tetrimino_Hold = Tetrimino.Get((TetriminoType)((int)tetrimino_Controlling.Color - 1));
+                    tetrimino_Controlling = Tetrimino.Get((TetriminoType)(int)temp);
+                }
+                updateGrid();
+                holded = true;
+                MP.drawHold(tetrimino_Hold);
+            }
+        }
+
         /*
          *動かせるかどうかの判定
          *移動先が0だったらtrue

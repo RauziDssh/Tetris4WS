@@ -38,6 +38,7 @@ namespace Tetris4ws
         static Image[,] cells = new Image[column_main, row_main];
 
         static Image[,] cells_Next = new Image[column_next, row_next];
+        static Image[,] cells_Hold = new Image[column_next, row_next];
 
         static BitmapImage bmp_block;
         static BitmapImage bmp_black;
@@ -87,7 +88,7 @@ namespace Tetris4ws
                 }
             }
 
-            //NEXTの描画セルの確保
+            //NEXT,HOLDの描画セルの確保
             for (int x = 0; x < column_next; x++)
             {
                 for (int y = 0; y < row_next; y++)
@@ -96,6 +97,11 @@ namespace Tetris4ws
                     Canvas_next.Children.Add(cells_Next[x, y]);
                     Canvas.SetLeft(cells_Next[x, y], x * (Canvas_next.Width / column_next));
                     Canvas.SetTop(cells_Next[x, y], y * (Canvas_next.Height / row_next));
+
+                    cells_Hold[x, y] = new Image();
+                    Canvas_Hold.Children.Add(cells_Hold[x, y]);
+                    Canvas.SetLeft(cells_Hold[x, y], x * (Canvas_next.Width / column_next));
+                    Canvas.SetTop(cells_Hold[x, y], y * (Canvas_next.Height / row_next));
                 }
             }
 
@@ -168,7 +174,18 @@ namespace Tetris4ws
 
         public void drawHold(Tetrimino tetrimino_hold)
         {
-
+            for (int x = 0; x < column_next; x++)
+            {
+                for (int y = 0; y < row_next; y++)
+                {
+                    cells_Hold[x, y].Source = bmp_black;
+                }
+            }
+            BitmapImage color = getColor((int)tetrimino_hold.Color);
+            for (int i = 0; i < 4; i++)
+            {
+                cells_Hold[1 + tetrimino_hold.Pattern[i, 0], 1 + tetrimino_hold.Pattern[i, 1]].Source = color;
+            }
         }
 
         private BitmapImage getColor(int num)
@@ -263,41 +280,13 @@ namespace Tetris4ws
             }
         }
 
-        /*
-        int testrow = 0;
-        private void testupdate(object sender, object e)
+        private void button_hold_Click(object sender, RoutedEventArgs e)
         {
-            for (int x = 0; x < column; x++)
+            if (playable)
             {
-                for (int y = 0; y < row; y++)
-                {
-                    if (y == testrow)
-                    {
-                        grid[x, y] = 1;
-                    }
-                    else
-                    {
-                        grid[x, y] = 0;
-                    }
-                    
-                }
+                GM.setHold();
             }
-            testrow++;
-            if (testrow == 21)
-            {
-                testrow = 0;
-            }
-        }*/
-
-        /* colors of Tetriminos
-        * 1:blue
-        * 2:red
-        * 3:yellow
-        * 4:skyblue
-        * 5:orange
-        * 6:green
-        * 7:viored
-        */
+        }
 
         Tetrimino next = new Tetrimino();
         
