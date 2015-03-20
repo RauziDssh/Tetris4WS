@@ -26,11 +26,11 @@ namespace Tetris4ws
         //操作中のテトリミノの原点位置
         int[] position_tetrimino;
         //操作中のテトリミノ
-        Tetrimino tetrimino_Controlling = new Tetrimino();
+        Tetrimino tetrimino_Controlling;
         //次のテトリミノ
-        public Tetrimino tetrimino_Next = new Tetrimino();
+        Tetrimino tetrimino_Next;
         //ホールド中のテトリミノ
-        public Tetrimino tetrimino_Hold = new Tetrimino();
+        Tetrimino tetrimino_Hold;
 
         public MainPage MP;
 
@@ -49,11 +49,11 @@ namespace Tetris4ws
             }
 
             //操作中テトリミノとNEXTテトリミノを取得する
-            tetrimino_Controlling = Tetrimino.Get(R1.Next(7));
+            tetrimino_Controlling = Tetrimino.Get((TetriminoType)R1.Next(7));
             position_tetrimino = new int[] { 4, 1 };
 
-            tetrimino_Next = Tetrimino.Get(R1.Next(7));
-            //MP.drawNext(tetrimino_Next);
+            tetrimino_Next = Tetrimino.Get((TetriminoType)R1.Next(7));
+            MP.drawNext(tetrimino_Next);
 
                 //グリッドの更新
                 for (int i = 0; i < 4; i++)
@@ -73,9 +73,9 @@ namespace Tetris4ws
         {
             position_tetrimino = new int[]{4,1};
 
-            tetrimino_Controlling = Tetrimino.Get((int)tetrimino_Next.Color - 1);
-            tetrimino_Next = Tetrimino.Get(R1.Next(7));
-            //MP.drawNext(tetrimino_Next);
+            tetrimino_Controlling = Tetrimino.Get((TetriminoType)((int)tetrimino_Next.Color -1));
+            tetrimino_Next = Tetrimino.Get((TetriminoType)R1.Next(7));
+            MP.drawNext(tetrimino_Next);
 
             
 

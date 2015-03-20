@@ -151,7 +151,7 @@ namespace Tetris4ws
         }
 
         
-        public void drawNext(int[,] grid_next_new)
+        public void drawNext(Tetrimino tetrimino_next)
         {
             for (int x = 0; x < column_next;x++)
             {
@@ -160,17 +160,15 @@ namespace Tetris4ws
                     cells_Next[x, y].Source = bmp_black;
                 }
             }
-            BitmapImage color = getColor(grid_next_new[1,1]);
-            for (int x = 0; x < column_next;x++)
-            {
-                for(int y = 0;y < row_next;y++)
-                {
-                    if(grid_next_new[x,y] != 0)
-                    {
-                        cells_Next[x,y].Source = color;
-                    }
-                }
+            BitmapImage color = getColor((int)tetrimino_next.Color);
+            for(int i = 0;i < 4;i++){
+                cells_Next[1 + tetrimino_next.Pattern[i, 0], 1 + tetrimino_next.Pattern[i, 1]].Source = color;
             }
+        }
+
+        public void drawHold(Tetrimino tetrimino_hold)
+        {
+
         }
 
         private BitmapImage getColor(int num)

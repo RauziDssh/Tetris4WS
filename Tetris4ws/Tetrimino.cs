@@ -15,7 +15,7 @@ namespace Tetris4ws
     // 外部から直接触れるような変数は極力減らす
     // 変数を変更できる入り口を極力減らす
     // 大規模なプログラムではどこから変数を修正しているか分からなくなることが多い
-    class Tetrimino
+    public class Tetrimino
     {
         static Tetrimino[] tetriminos;
 
@@ -39,13 +39,8 @@ namespace Tetris4ws
             }
         }
 
-        //ランダムなパターンを取得する
-        public static Tetrimino Get(int num)
-        {
-            return tetriminos[num* 4];
-        }
-
         // 指定されたパターンを取得する
+        //整数値から指定したいとき　Tetrimino.Get((Tetrimino)int i);
         public static Tetrimino Get(TetriminoType type)
         {
             return tetriminos[(int)type* 4];
