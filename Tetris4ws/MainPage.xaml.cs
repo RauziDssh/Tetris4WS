@@ -177,21 +177,21 @@ namespace Tetris4ws
         {
             switch (num)
             {
-                case 0:
+                case (int)Colors.Black:
                     return bmp_black;
-                case 1:
+                case (int)Colors.Blue:
                     return bmp_blue;
-                case 2:
+                case (int)Colors.Red:
                     return bmp_red;
-                case 3:
+                case (int)Colors.Yellow:
                     return bmp_yellow;
-                case 4:
+                case (int)Colors.Skyblue:
                     return bmp_skyblue;
-                case 5:
+                case (int)Colors.Orange:
                     return bmp_orange;
-                case 6:
+                case (int)Colors.Green:
                     return bmp_green;
-                case 7:
+                case (int)Colors.Viored:
                     return bmp_viored;
                 default:
                     return bmp_black;
