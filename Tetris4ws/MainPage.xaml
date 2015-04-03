@@ -13,7 +13,9 @@
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Canvas x:Name="Canvas01" HorizontalAlignment="Center" Height="1000" Margin="429,-116,437,-116" VerticalAlignment="Center" Width="500" Background="Black" Grid.Column="1"/>
+        <Canvas x:Name="Canvas01" HorizontalAlignment="Center" 
+                Height="{Binding H}" Margin="429,-116,437,-116" VerticalAlignment="Center" 
+                Width="{Binding W}" Background="Black" Grid.Column="1"/>
         <TextBlock x:Name="debugbox" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="128,465,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="114" FontSize="30" Width="189"/>
         <Button x:Name="button_Rotate" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,0,58,373" VerticalAlignment="Bottom" Width="297" Height="127" Click="button_Rotate_Click" Content="回転" FontFamily="Global User Interface"/>
         <Button x:Name="button_Left" Grid.ColumnSpan="2" Content="左" HorizontalAlignment="Right" Margin="0,0,206,150" VerticalAlignment="Bottom" Click="button_Left_Click" Height="220" Width="149"/>

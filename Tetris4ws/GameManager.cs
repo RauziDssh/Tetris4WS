@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Tetris4ws
 {
-
     class GameManager
     {
         const int column_main = 10;
@@ -242,6 +241,7 @@ namespace Tetris4ws
         {
             if (holded == false)
             {
+                reset();
                 if (firstHold)
                 {
                     tetrimino_Hold = Tetrimino.Get((TetriminoType)((int)tetrimino_Controlling.Color - 1));

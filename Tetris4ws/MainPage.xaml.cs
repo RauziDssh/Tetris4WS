@@ -60,19 +60,10 @@ namespace Tetris4ws
         {
             this.InitializeComponent();
 
-
-            //Bitmapリソースの取得
-            bmp_block = new BitmapImage(new Uri("ms-appx:///Assets/blockparts.bmp"));
-            bmp_black = new BitmapImage(new Uri("ms-appx:///Assets/black.bmp"));
-            bmp_grey = new BitmapImage(new Uri("ms-appx:///Assets/blockparts_Grey.bmp"));
-             
-            bmp_blue = new BitmapImage(new Uri("ms-appx:///Assets/blockparts_Blue.bmp"));
-            bmp_red = new BitmapImage(new Uri("ms-appx:///Assets/blockparts_Red.bmp"));
-            bmp_yellow = new BitmapImage(new Uri("ms-appx:///Assets/blockparts_Yellow.bmp"));
-            bmp_viored = new BitmapImage(new Uri("ms-appx:///Assets/blockparts_viored.bmp"));
-            bmp_skyblue = new BitmapImage(new Uri("ms-appx:///Assets/blockparts_Skyblue.bmp"));
-            bmp_orange = new BitmapImage(new Uri("ms-appx:///Assets/blockparts_Orange.bmp"));
-            bmp_green = new BitmapImage(new Uri("ms-appx:///Assets/blockparts_Green.bmp"));
+            //コントロールの各パラメータを設定
+            int height_main = 500;
+            int width_main = 250;
+            this.DataContext = new { H = height_main, W = width_main };
 
             //グリッドの初期化,描画セルの確保
             for (int x = 0; x < column_main; x++)
@@ -82,9 +73,11 @@ namespace Tetris4ws
                     grid[x, y] = 0;
 
                     cells[x, y] = new Image();
-                    Canvas01.Children.Add(cells[x,y]);
-                    Canvas.SetLeft(cells[x,y], x * (Canvas01.Width / column_main));
-                    Canvas.SetTop(cells[x,y], y * (Canvas01.Height / row_main));
+                    cells[x, y].Height = height_main / row_main;
+                    cells[x, y].Width = width_main / column_main;
+                    Canvas01.Children.Add(cells[x, y]);
+                    Canvas.SetLeft(cells[x, y], x * (Canvas01.Width / column_main));
+                    Canvas.SetTop(cells[x, y], y * (Canvas01.Height / row_main));
                 }
             }
 
@@ -104,6 +97,19 @@ namespace Tetris4ws
                     Canvas.SetTop(cells_Hold[x, y], y * (Canvas_next.Height / row_next));
                 }
             }
+
+            //Bitmapリソースの取得
+            bmp_block = new BitmapImage(new Uri("ms-appx:///Assets/blockparts.bmp"));
+            bmp_black = new BitmapImage(new Uri("ms-appx:///Assets/black.bmp"));
+            bmp_grey = new BitmapImage(new Uri("ms-appx:///Assets/blockparts_Grey.bmp"));
+             
+            bmp_blue = new BitmapImage(new Uri("ms-appx:///Assets/blockparts_Blue.bmp"));
+            bmp_red = new BitmapImage(new Uri("ms-appx:///Assets/blockparts_Red.bmp"));
+            bmp_yellow = new BitmapImage(new Uri("ms-appx:///Assets/blockparts_Yellow.bmp"));
+            bmp_viored = new BitmapImage(new Uri("ms-appx:///Assets/blockparts_viored.bmp"));
+            bmp_skyblue = new BitmapImage(new Uri("ms-appx:///Assets/blockparts_Skyblue.bmp"));
+            bmp_orange = new BitmapImage(new Uri("ms-appx:///Assets/blockparts_Orange.bmp"));
+            bmp_green = new BitmapImage(new Uri("ms-appx:///Assets/blockparts_Green.bmp"));
 
             //描画タイマのインターバルを設定
             timer = new DispatcherTimer();
