@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tetris4ws
 {
+
     class GameManager
     {
         const int column_main = 10;

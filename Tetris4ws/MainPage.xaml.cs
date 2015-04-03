@@ -61,9 +61,11 @@ namespace Tetris4ws
             this.InitializeComponent();
 
             //コントロールの各パラメータを設定
-            int height_main = 500;
-            int width_main = 250;
-            this.DataContext = new { H = height_main, W = width_main };
+            int height_main = 1000;
+            int width_main = 500;
+            int height_sub = 200;
+            int width_sub = 200;
+            this.DataContext = new { H = height_main, W = width_main,H_sub = height_sub,W_sub = width_sub};
 
             //グリッドの初期化,描画セルの確保
             for (int x = 0; x < column_main; x++)
@@ -87,11 +89,15 @@ namespace Tetris4ws
                 for (int y = 0; y < row_next; y++)
                 {
                     cells_Next[x, y] = new Image();
+                    cells_Next[x, y].Height = height_sub / row_next;
+                    cells_Next[x, y].Width = width_sub / column_next;
                     Canvas_next.Children.Add(cells_Next[x, y]);
                     Canvas.SetLeft(cells_Next[x, y], x * (Canvas_next.Width / column_next));
                     Canvas.SetTop(cells_Next[x, y], y * (Canvas_next.Height / row_next));
 
                     cells_Hold[x, y] = new Image();
+                    cells_Hold[x, y].Height = height_sub / row_next;
+                    cells_Hold[x, y].Width = width_sub / column_next;
                     Canvas_Hold.Children.Add(cells_Hold[x, y]);
                     Canvas.SetLeft(cells_Hold[x, y], x * (Canvas_next.Width / column_next));
                     Canvas.SetTop(cells_Hold[x, y], y * (Canvas_next.Height / row_next));

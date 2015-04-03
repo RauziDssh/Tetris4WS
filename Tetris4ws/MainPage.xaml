@@ -23,8 +23,12 @@
         <Button x:Name="button_Down" Grid.ColumnSpan="2" Content="下" HorizontalAlignment="Right" Margin="0,0,53,42" VerticalAlignment="Bottom" Click="button_Down_Click" Height="90" Width="302"/>
         <TextBlock x:Name="tb1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="128,629,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="13" Width="45"/>
         <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,12,320,0" TextWrapping="Wrap" Text="NEXT" VerticalAlignment="Top" FontSize="30" Height="36" Width="72"/>
-        <Canvas x:Name="Canvas_next" Grid.ColumnSpan="2" Height="200" Margin="0,53,192,0" VerticalAlignment="Top" Background="{ThemeResource AppBarBackgroundThemeBrush}" HorizontalAlignment="Right" Width="200"/>
-        <Canvas x:Name="Canvas_Hold" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="200" Margin="128,53,0,0" VerticalAlignment="Top" Width="200" Background="Black"/>
+        <Canvas x:Name="Canvas_next" Grid.ColumnSpan="2" 
+                Height="{Binding H_sub}" Margin="0,53,192,0" VerticalAlignment="Top" Background="{ThemeResource AppBarBackgroundThemeBrush}" HorizontalAlignment="Right" 
+                Width="{Binding W_sub}"/>
+        <Canvas x:Name="Canvas_Hold" Grid.ColumnSpan="2" HorizontalAlignment="Left" 
+                Height="{Binding H_sub}" Margin="128,53,0,0" VerticalAlignment="Top" 
+                Width="{Binding W_sub}" Background="Black"/>
         <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="128,12,0,0" TextWrapping="Wrap" Text="HOLD" VerticalAlignment="Top" FontSize="30"/>
         <Button x:Name="button_hold" Content="HOLD" Height="121" Grid.ColumnSpan="2" Margin="0,0,53,512" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="302" Click="button_hold_Click"/>
     </Grid>
